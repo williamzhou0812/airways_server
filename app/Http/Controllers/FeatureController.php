@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Feature;
+use App\Transformers\FeatureTransformer;
 use Illuminate\Http\Request;
 
 class FeatureController extends Controller
@@ -15,7 +16,10 @@ class FeatureController extends Controller
     public function index()
     {
         $feature = Feature::all();
-        return $feature;
+        return fractal()
+            ->collection($feature)
+            ->transformWith(new FeatureTransformer)
+            ->toArray();
     }
 
     /**
@@ -47,7 +51,10 @@ class FeatureController extends Controller
      */
     public function show(Feature $feature)
     {
-        return $feature;
+        return fractal()
+            ->item($feature)
+            ->transformWith(new FeatureTransformer)
+            ->toArray();
     }
 
     /**

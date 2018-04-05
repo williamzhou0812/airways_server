@@ -8,22 +8,29 @@
 
 namespace app\Transformers;
 
-use App\Transformers\RoleTransformer;
-use App\Models\User;
+use App\Models\Apartment;
 use Illuminate\Support\Facades\Storage;
 
 class ApartmentTransformer extends \League\Fractal\TransformerAbstract
 {
     public function transform(Apartment $apartment)
     {
+
+        $images_array = array();
+
+        $images_string_array = json_decode($apartment->images_path);
+
+        foreach ($images_string_array as $image) {
+            $images_array[] = Storage::url($image);
+        }
+
         return [
             'id' => $apartment->id,
             'name' => $apartment->name,
             'description' => $apartment->description,
             'phone' => $apartment->phone,
             'open_hours' => $apartment->open_hours,
-            'images_path' => $apartment->images_path
+            'images_path' => $images_array
         ];
     }
-
 }

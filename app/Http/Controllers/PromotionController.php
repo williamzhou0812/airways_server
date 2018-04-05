@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Promotion;
+use App\Transformers\PromotionTransformer;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
@@ -15,7 +16,10 @@ class PromotionController extends Controller
     public function index()
     {
         $promotion = Promotion::all();
-        return $promotion;
+        return fractal()
+            ->collection($promotion)
+            ->transformWith(new PromotionTransformer)
+            ->toArray();
     }
 
     /**
@@ -47,7 +51,10 @@ class PromotionController extends Controller
      */
     public function show(Promotion $promotion)
     {
-        return $promotion;
+        return fractal()
+            ->item($promotion)
+            ->transformWith(new PromotionTransformer)
+            ->toArray();
     }
 
     /**

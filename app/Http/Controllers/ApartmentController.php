@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use App\Transformers\ApartmentTransformer;
 
 class ApartmentController extends Controller
 {
@@ -15,14 +16,10 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartments = Apartment::all();
-        return $apartments;
-
-        /*return fractal()
-            ->collection($user)
-            ->parseIncludes(['role'])
-            ->transformWith(new UserTransformer)
-            ->toArray();*/
-
+        return fractal()
+            ->collection($apartments)
+            ->transformWith(new ApartmentTransformer)
+            ->toArray();
     }
 
     /**
@@ -54,7 +51,11 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return $apartment;
+        //return $apartment;
+        return fractal()
+            ->item($apartment)
+            ->transformWith(new ApartmentTransformer)
+            ->toArray();
     }
 
     /**

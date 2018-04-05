@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Transformers\GalleryTransformer;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -15,7 +16,10 @@ class GalleryController extends Controller
     public function index()
     {
         $gallery = Gallery::all();
-        return $gallery;
+        return fractal()
+            ->collection($gallery)
+            ->transformWith(new GalleryTransformer)
+            ->toArray();
     }
 
     /**
@@ -47,7 +51,12 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        return $gallery;
+        //return $gallery;
+
+        return fractal()
+            ->item($gallery)
+            ->transformWith(new GalleryTransformer)
+            ->toArray();
     }
 
     /**

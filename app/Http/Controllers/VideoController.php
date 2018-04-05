@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use App\Transformers\VideoTransformer;
 use Illuminate\Http\Request;
 
 class VideoController extends Controller
@@ -15,7 +16,10 @@ class VideoController extends Controller
     public function index()
     {
         $video = Video::all();
-        return $video;
+        return fractal()
+            ->collection($video)
+            ->transformWith(new VideoTransformer)
+            ->toArray();
     }
 
     /**
@@ -47,7 +51,10 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        return $video;
+        return fractal()
+            ->item($video)
+            ->transformWith(new VideoTransformer)
+            ->toArray();
     }
 
     /**

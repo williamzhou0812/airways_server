@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Map;
+use App\Transformers\MapTransformer;
 use Illuminate\Http\Request;
 
 class MapController extends Controller
@@ -14,8 +15,12 @@ class MapController extends Controller
      */
     public function index()
     {
-        $map = Map::all();
-        return $map;
+        //$map = Map::all()->sortByDesc("id");
+        $map = Map::all()->sortByDesc("id")->take(1);
+        return fractal()
+            ->collection($map)
+            ->transformWith(new MapTransformer)
+            ->toArray();
     }
 
     /**
@@ -47,7 +52,10 @@ class MapController extends Controller
      */
     public function show(Map $map)
     {
-        return $map;
+        return fractal()
+            ->item($map)
+            ->transformWith(new MapTransformer)
+            ->toArray();
     }
 
     /**
