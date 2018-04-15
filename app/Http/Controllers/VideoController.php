@@ -15,7 +15,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $video = Video::all();
+        $video = Video::all()->sortByDesc("id")->take(1);
         return fractal()
             ->collection($video)
             ->transformWith(new VideoTransformer)

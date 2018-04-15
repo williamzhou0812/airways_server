@@ -16,7 +16,7 @@ class VideoTransformer extends \League\Fractal\TransformerAbstract
     {
         return [
             'id' => $video->id,
-            'images_path' => Storage::url($video->path)
+            'images_path' => Storage::url(json_decode($video->path)[0]->download_link)
         ];
     }
 }
