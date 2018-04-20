@@ -17,8 +17,7 @@ class PromotionTransformer extends \League\Fractal\TransformerAbstract
     {
         return [
             'id' => $promotion->id,
-            'images_path' => Storage::url($promotion->images_path),
-            'position' => $promotion->position
+            'images_path' => Storage::url($promotion->images_path)
         ];
     }
 }

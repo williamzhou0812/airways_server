@@ -17,8 +17,7 @@ class CreatePromotionsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('images_path',1000);
-            $table->integer('position');
-        });
+         });
     }
 
     /**
