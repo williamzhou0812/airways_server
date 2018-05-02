@@ -49,5 +49,12 @@ Route::group(['prefix' => 'promotion'], function() {
 Route::group(['prefix' => 'video'], function() {
     Route::get('/', 'VideoController@index');
     Route::get('/{video}', 'VideoController@show');
+});
 
+Route::group(['prefix' => 'section'], function() {
+    Route::get('/', 'SectionController@index');
+});
+
+Route::group(['prefix' => 'directory_display'], function() {
+    Route::get('/', 'DirectoryDisplayController@index');
 });
