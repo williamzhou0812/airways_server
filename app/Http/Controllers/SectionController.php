@@ -18,7 +18,8 @@ class SectionController extends Controller
         $section = Section::all();
          return fractal()
             ->collection($section)
-            ->transformWith(new SectionTransformer)
+             ->parseIncludes(['directory_display'])
+             ->transformWith(new SectionTransformer)
             ->toArray();
     }
 }
