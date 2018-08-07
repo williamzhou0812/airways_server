@@ -15,7 +15,11 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $gallery = Gallery::all();
+        $gallery = Gallery::where([
+            ['images_path', '!=', '[]'],
+            ['images_path', '!=', '']
+        ])->get();
+        
         return fractal()
             ->collection($gallery)
             ->transformWith(new GalleryTransformer)

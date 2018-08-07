@@ -15,7 +15,11 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::all();
+        $apartments = Apartment::where([
+                        ['images_path', '!=', '[]'],
+                        ['images_path', '!=', '']
+                    ])->get();
+        
         return fractal()
             ->collection($apartments)
             ->transformWith(new ApartmentTransformer)

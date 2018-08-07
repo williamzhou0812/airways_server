@@ -15,7 +15,11 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        $promotion = Promotion::all();
+        $promotion = Promotion::where([
+            ['images_path', '!=', '[]'],
+            ['images_path', '!=', '']
+        ])->get();
+        
         return fractal()
             ->collection($promotion)
             ->transformWith(new PromotionTransformer)

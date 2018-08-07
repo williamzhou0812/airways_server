@@ -10,7 +10,10 @@ class DirectoryDisplayController extends Controller
 {
     public function index()
     {
-        $directoryDisplay = DirectoryDisplay::all();
+        $directoryDisplay = DirectoryDisplay::where([
+            ['image_path', '!=', '[]'],
+            ['image_path', '!=', '']
+        ])->get();
         return fractal()
             ->collection($directoryDisplay)
             ->parseIncludes(['section'])

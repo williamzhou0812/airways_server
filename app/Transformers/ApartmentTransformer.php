@@ -15,15 +15,14 @@ class ApartmentTransformer extends \League\Fractal\TransformerAbstract
 {
     public function transform(Apartment $apartment)
     {
-
         $images_array = array();
-
+ 
         $images_string_array = json_decode($apartment->images_path);
 
         foreach ($images_string_array as $image) {
             $images_array[] = Storage::url($image);
         }
-
+    
         return [
             'id' => $apartment->id,
             'name' => $apartment->name,

@@ -15,7 +15,11 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $section = Section::all();
+        $section = Section::where([
+            ['image_path', '!=', '[]'],
+            ['image_path', '!=', '']
+        ])->get();
+        
          return fractal()
             ->collection($section)
              ->parseIncludes(['directory_display'])

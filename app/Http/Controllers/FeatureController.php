@@ -15,7 +15,11 @@ class FeatureController extends Controller
      */
     public function index()
     {
-        $feature = Feature::all();
+        $feature = Feature::where([
+            ['images_path', '!=', '[]'],
+            ['images_path', '!=', '']
+        ])->get();
+        
         return fractal()
             ->collection($feature)
             ->transformWith(new FeatureTransformer)
